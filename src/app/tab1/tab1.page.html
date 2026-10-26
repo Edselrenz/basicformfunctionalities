@@ -1,17 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title> All about NEUST </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title> Nueva Ecija University of Science and Technology</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- A container for the buttons, placed one after the other for clarity. -->
+  <div class="ion-padding-bottom">
+    <!-- Button 1: When clicked, it calls the showContent() function and passes 'mission' as an argument. -->
+    <ion-button expand="block" (click)="showContent('mission')"
+      >Mission</ion-button
+    >
+  </div>
+  <div class="ion-padding-bottom">
+    <!-- Button 2: Calls showContent() with 'vision'. -->
+    <ion-button expand="block" (click)="showContent('vision')"
+      >Vision</ion-button
+    >
+  </div>
+  <div class="ion-padding-bottom">
+    <!-- Button 3: Calls showContent() with 'tagline'. -->
+    <ion-button expand="block" (click)="showContent('tagline')"
+      >Tagline</ion-button
+    >
+  </div>
+  <div class="ion-padding-bottom">
+    <!-- Button 4: Calls showContent() with 'coreValues'. -->
+    <ion-button expand="block" (click)="showContent('coreValues')"
+      >Core Values</ion-button
+    >
+  </div>
+  <!-- This is the input box (textarea) where the content will be displayed. -->
+  <!-- The [(ngModel)] connects this box to the 'displayedContent' variable in the TypeScript file. -->
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Content</ion-label>
+      <ion-textarea
+        placeholder="Click a button above to see the content..."
+        [(ngModel)]="displayedContent"
+        rows="5"
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
 </ion-content>

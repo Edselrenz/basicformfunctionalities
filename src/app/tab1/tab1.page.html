@@ -26,6 +26,7 @@
           type="email"
           name="email"
           [(ngModel)]="email"
+          email
           required
         >
         </ion-input>
@@ -41,6 +42,22 @@
           <ion-select-option value="male">Male</ion-select-option>
           <ion-select-option value="female">Female</ion-select-option>
           <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          label="Country"
+          labelPlacement="floating"
+          name="country"
+          [(ngModel)]="country"
+        >
+          <ion-select-option value="Philippines">Philippines</ion-select-option>
+          <ion-select-option value="United States">United States</ion-select-option>
+          <ion-select-option value="Canada">Canada</ion-select-option>
+          <ion-select-option value="United Kingdom">United Kingdom</ion-select-option>
+          <ion-select-option value="Australia">Australia</ion-select-option>
+          <ion-select-option value="Other">Other</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -62,7 +79,11 @@
       </ion-item>
 
       <ion-item>
-        <ion-checkbox name="agreeToTerms" [(ngModel)]="agreeToTerms">
+        <ion-checkbox
+          name="agreeToTerms"
+          [(ngModel)]="agreeToTerms"
+          required
+        >
           I agree to the terms and conditions
         </ion-checkbox>
       </ion-item>
@@ -72,7 +93,7 @@
       <ion-button
         expand="block"
         type="submit"
-        [disabled]="!basicForm.form.valid"
+        [disabled]="!basicForm.form.valid || !fullName.trim() || !email.trim() || !agreeToTerms"
       >
         Submit
       </ion-button>
@@ -81,7 +102,7 @@
         fill="outline"
         color="medium"
         type="button"
-        (click)="onReset()"
+        (click)="onReset(basicForm)"
       >
         Reset
       </ion-button>
@@ -94,11 +115,13 @@
       <ion-card-title>Submitted Data</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Name:</strong> {{ fullName }}</p>
-      <p><strong>Email:</strong> {{ email }}</p>
-      <p><strong>Gender:</strong> {{ gender || 'Not specified' }}</p>
-      <p><strong>Bio:</strong> {{ bio || 'None' }}</p>
-      <p><strong>Notifications:</strong> {{ notifications ? 'Yes' : 'No' }}</p>
+      <p><strong>Name:</strong> {{ submittedData?.fullName ?? fullName }}</p>
+      <p><strong>Email:</strong> {{ submittedData?.email ?? email }}</p>
+      <p><strong>Gender:</strong> {{ (submittedData?.gender ?? gender) || 'Not specified' }}</p>
+      <p><strong>Country:</strong> {{ (submittedData?.country ?? country) || 'Not specified' }}</p>
+      <p><strong>Bio:</strong> {{ (submittedData?.bio ?? bio) || 'None' }}</p>
+      <p><strong>Notifications:</strong> {{ (submittedData?.notifications ?? notifications) ? 'Yes' : 'No' }}</p>
+      <p><strong>Agreed to Terms:</strong> {{ (submittedData?.agreeToTerms ?? agreeToTerms) ? 'Yes' : 'No' }}</p>
     </ion-card-content>
   </ion-card>
   }

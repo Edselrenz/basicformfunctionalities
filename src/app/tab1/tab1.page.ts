@@ -1,40 +1,91 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { FormsModule, NgForm } from '@angular/forms';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonItem,
+  IonInput,
+  IonTextarea,
+  IonSelect,
+  IonSelectOption,
+  IonCheckbox,
+  IonToggle,
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+} from '@ionic/angular';
+
+export interface SubmittedFormData {
+  fullName: string;
+  email: string;
+  gender: string;
+  country: string;
+  bio: string;
+  notifications: boolean;
+  agreeToTerms: boolean;
+}
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonItem,
+    IonInput,
+    IonTextarea,
+    IonSelect,
+    IonSelectOption,
+    IonCheckbox,
+    IonToggle,
+    IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
   ],
 })
 export class Tab1Page {
-  fullName: string = '';
-  email: string = '';
-  gender: string = '';
-  country: string = '';
-  agreeToTerms: boolean = false;
-  notifications: boolean = true;
-  bio: string = '';
-  submitted: boolean = false;
-
-  constructor() {}
+  fullName = '';
+  email = '';
+  gender = '';
+  country = '';
+  agreeToTerms = false;
+  notifications = true;
+  bio = '';
+  submitted = false;
+  submittedData: SubmittedFormData | null = null;
 
   onSubmit(): void {
-    if (!this.fullName.trim() || !this.email.trim()) {
+    const trimmedName = this.fullName.trim();
+    const trimmedEmail = this.email.trim();
+    if (!trimmedName || !trimmedEmail) {
       return;
     }
+
+    this.submittedData = {
+      fullName: trimmedName,
+      email: trimmedEmail,
+      gender: this.gender,
+      country: this.country,
+      bio: this.bio.trim(),
+      notifications: this.notifications,
+      agreeToTerms: this.agreeToTerms,
+    };
     this.submitted = true;
   }
 
-  onReset(): void {
+  onReset(form?: NgForm): void {
     this.fullName = '';
     this.email = '';
     this.gender = '';
@@ -43,5 +94,16 @@ export class Tab1Page {
     this.notifications = true;
     this.bio = '';
     this.submitted = false;
+    this.submittedData = null;
+
+    form?.resetForm({
+      fullName: '',
+      email: '',
+      gender: '',
+      country: '',
+      agreeToTerms: false,
+      notifications: true,
+      bio: '',
+    });
   }
 }

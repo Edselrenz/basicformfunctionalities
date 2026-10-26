@@ -1,39 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, EnvironmentInjector, inject } from '@angular/core';
+import {
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { triangle, ellipse, square } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
 })
 export class TabsPage {
-  public displayedContent: string = '';
+  public environmentInjector = inject(EnvironmentInjector);
 
-  constructor() {}
-
-  public showContent(type: string): void {
-    switch (type) {
-      case 'mission':
-        this.displayedContent =
-          'Our mission is to provide an excellent learning environment for all our students.';
-        break;
-
-      case 'vision':
-        this.displayedContent =
-          'Our vision is to become the leading university in our region, fostering innovation and leadership.';
-        break;
-
-      case 'tagline':
-        this.displayedContent = 'Your Future, Our Commitment.';
-        break;
-
-      case 'coreValues':
-        this.displayedContent =
-          'Our core values are:\n\n1. Integrity\n2. Excellence\n3. Collaboration\n4. Compassion';
-        break;
-
-      default:
-        this.displayedContent = 'Content not found.';
-    }
+  constructor() {
+    addIcons({ triangle, ellipse, square });
   }
 }

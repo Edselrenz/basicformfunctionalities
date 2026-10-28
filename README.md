@@ -1,7 +1,6 @@
 # Link for the webpage
 https://edselrenz.github.io/basicformfunctionalities/tabs/tab1
 
-
 # Basic Form Functionalities & Mobile Portal
 
 A mobile-first hybrid application built with **Ionic 9**, **Angular 22 (Standalone Components)**, and **Capacitor 8**. The application demonstrates modern frontend engineering patterns, reactive form bindings, calculation engines, structured records management, client-side data persistence, and native drawer navigation.

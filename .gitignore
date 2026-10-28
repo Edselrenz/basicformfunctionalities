@@ -53,7 +53,7 @@ yarn-error.log
 .history/*
 
 /.agents
-
+/.VSCodeCounter
 
 # Miscellaneous
 /.angular

@@ -1,0 +1,37 @@
+.calc-page-container { max-width: 420px; margin: 0 auto; }
+.calc-mode-segment { margin-bottom: 16px; }
+.calculator-display {
+  background: var(--c-bg, #f1f4f9); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px; text-align: right; border: 1px solid var(--c-b, #cbd5e1);
+  .history-line { font-size: 0.9rem; min-height: 1.2rem; color: var(--c-h, #64748b); }
+  .current-value { font-size: 2.3rem; font-weight: 700; color: var(--c-v, #0f172a); margin-top: 2px; }
+}
+.calculator-grid {
+  ion-row { margin-bottom: 6px; }
+  ion-col { padding: 3px; }
+  ion-button { height: 52px; margin: 0; --border-radius: 10px; font-size: 1.2rem; font-weight: 600; }
+}
+.form-calculator-panel {
+  border-radius: 10px; background: var(--cd-bg, #fff); border: 1px solid var(--cd-b, #e2e8f0); padding: 16px;
+  .panel-header { margin-bottom: 14px; .panel-title { font-size: 1.15rem; font-weight: 700; margin: 0 0 2px; } .panel-desc { font-size: 0.82rem; color: var(--c-h, #64748b); margin: 0; } }
+  .form-calc-inputs {
+    border-radius: 8px; border: 1px solid var(--in-b, #cbd5e1); background: var(--in-bg, #f8fafc);
+    .calc-input-item { --background: transparent; border-bottom: 1px solid var(--in-b, #e2e8f0); &:last-child { border-bottom: none; } ion-input { --color: var(--in-c, #0f172a); } }
+  }
+  .operator-row {
+    .operator-label { display: block; font-size: 0.72rem; text-transform: uppercase; font-weight: 600; color: var(--c-h, #64748b); margin-bottom: 4px; }
+    .op-btn { height: 40px; font-size: 1.1rem; font-weight: 700; margin: 2px; --border-radius: 6px; }
+  }
+  .form-action-row { display: flex; gap: 8px; .calc-submit-btn { flex: 1; height: 42px; margin: 0; } .calc-clear-btn { height: 42px; margin: 0; } }
+  .result-display-box {
+    border-radius: 8px; background: var(--r-bg, #eff6ff); border: 1px solid #3b82f6; padding: 10px 14px;
+    .result-tag { font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--r-t, #1e40af); }
+    .result-equation { font-size: 1.3rem; font-weight: 700; color: var(--r-v, #1d4ed8); margin-top: 2px; }
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :host {
+    --c-bg: #1e2026; --c-b: #2e333d; --c-h: #94a3b8; --c-v: #fff;
+    --cd-bg: #18191d; --cd-b: #2d3139; --in-bg: #242730; --in-b: #3b404d; --in-c: #fff;
+    --r-bg: #132238; --r-t: #93c5fd; --r-v: #60a5fa;
+  }
+}

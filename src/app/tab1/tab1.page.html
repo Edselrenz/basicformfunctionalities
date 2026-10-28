@@ -1,128 +1,180 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Basic Form Functionalities</ion-title>
+    <ion-title>User Registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <form (ngSubmit)="onSubmit()" #basicForm="ngForm">
-    <ion-list>
-      <ion-item>
-        <ion-input
-          label="Full Name"
-          labelPlacement="floating"
-          type="text"
-          name="fullName"
-          [(ngModel)]="fullName"
-          required
-        >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input
-          label="Email"
-          labelPlacement="floating"
-          type="email"
-          name="email"
-          [(ngModel)]="email"
-          email
-          required
-        >
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-select
-          label="Gender"
-          labelPlacement="floating"
-          name="gender"
-          [(ngModel)]="gender"
-        >
-          <ion-select-option value="male">Male</ion-select-option>
-          <ion-select-option value="female">Female</ion-select-option>
-          <ion-select-option value="other">Other</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-select
-          label="Country"
-          labelPlacement="floating"
-          name="country"
-          [(ngModel)]="country"
-        >
-          <ion-select-option value="Philippines">Philippines</ion-select-option>
-          <ion-select-option value="United States">United States</ion-select-option>
-          <ion-select-option value="Canada">Canada</ion-select-option>
-          <ion-select-option value="United Kingdom">United Kingdom</ion-select-option>
-          <ion-select-option value="Australia">Australia</ion-select-option>
-          <ion-select-option value="Other">Other</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-textarea
-          label="Bio"
-          labelPlacement="floating"
-          name="bio"
-          [(ngModel)]="bio"
-          [rows]="3"
-        >
-        </ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-toggle name="notifications" [(ngModel)]="notifications">
-          Enable Notifications
-        </ion-toggle>
-      </ion-item>
-
-      <ion-item>
-        <ion-checkbox
-          name="agreeToTerms"
-          [(ngModel)]="agreeToTerms"
-          required
-        >
-          I agree to the terms and conditions
-        </ion-checkbox>
-      </ion-item>
-    </ion-list>
-
-    <div class="ion-padding-top">
-      <ion-button
-        expand="block"
-        type="submit"
-        [disabled]="!basicForm.form.valid || !fullName.trim() || !email.trim() || !agreeToTerms"
-      >
-        Submit
-      </ion-button>
-      <ion-button
-        expand="block"
-        fill="outline"
-        color="medium"
-        type="button"
-        (click)="onReset(basicForm)"
-      >
-        Reset
-      </ion-button>
+  <div class="form-container">
+    <div class="form-header">
+      <h1 class="page-headline">Account Profile</h1>
+      <p class="page-subline">Complete your information to register your profile.</p>
     </div>
-  </form>
 
-  @if (submitted) {
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Submitted Data</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p><strong>Name:</strong> {{ submittedData?.fullName ?? fullName }}</p>
-      <p><strong>Email:</strong> {{ submittedData?.email ?? email }}</p>
-      <p><strong>Gender:</strong> {{ (submittedData?.gender ?? gender) || 'Not specified' }}</p>
-      <p><strong>Country:</strong> {{ (submittedData?.country ?? country) || 'Not specified' }}</p>
-      <p><strong>Bio:</strong> {{ (submittedData?.bio ?? bio) || 'None' }}</p>
-      <p><strong>Notifications:</strong> {{ (submittedData?.notifications ?? notifications) ? 'Yes' : 'No' }}</p>
-      <p><strong>Agreed to Terms:</strong> {{ (submittedData?.agreeToTerms ?? agreeToTerms) ? 'Yes' : 'No' }}</p>
-    </ion-card-content>
-  </ion-card>
-  }
+    <form (ngSubmit)="onSubmit()" #basicForm="ngForm">
+      <!-- Section 1: Personal Details -->
+      <div class="form-group-section">
+        <h2 class="group-title">Personal Details</h2>
+        <ion-list lines="none" class="input-group">
+          <ion-item class="form-field-item">
+            <ion-input
+              label="Full Name"
+              labelPlacement="floating"
+              type="text"
+              name="fullName"
+              [(ngModel)]="fullName"
+              placeholder="e.g. Juan Dela Cruz"
+              autocomplete="name"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <ion-item class="form-field-item">
+            <ion-input
+              label="Email Address"
+              labelPlacement="floating"
+              type="email"
+              name="email"
+              [(ngModel)]="email"
+              placeholder="e.g. juan@example.com"
+              autocomplete="email"
+              email
+              required
+            ></ion-input>
+          </ion-item>
+
+          <ion-item class="form-field-item">
+            <ion-select
+              label="Gender"
+              labelPlacement="floating"
+              name="gender"
+              [(ngModel)]="gender"
+              placeholder="Select gender"
+            >
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+              <ion-select-option value="other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="form-field-item">
+            <ion-select
+              label="Country"
+              labelPlacement="floating"
+              name="country"
+              [(ngModel)]="country"
+              placeholder="Select country"
+            >
+              <ion-select-option value="Philippines">Philippines</ion-select-option>
+              <ion-select-option value="United States">United States</ion-select-option>
+              <ion-select-option value="Canada">Canada</ion-select-option>
+              <ion-select-option value="United Kingdom">United Kingdom</ion-select-option>
+              <ion-select-option value="Australia">Australia</ion-select-option>
+              <ion-select-option value="Other">Other</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- Section 2: Bio & Preferences -->
+      <div class="form-group-section">
+        <h2 class="group-title">Bio & Preferences</h2>
+        <ion-list lines="none" class="input-group">
+          <ion-item class="form-field-item">
+            <ion-textarea
+              label="Short Bio"
+              labelPlacement="floating"
+              name="bio"
+              [(ngModel)]="bio"
+              placeholder="Brief description about yourself..."
+              [rows]="3"
+            ></ion-textarea>
+          </ion-item>
+
+          <ion-item class="toggle-field-item">
+            <ion-toggle name="notifications" [(ngModel)]="notifications" justify="space-between">
+              <div>
+                <strong>Notifications</strong>
+                <p class="toggle-hint">Receive essential account alerts and updates</p>
+              </div>
+            </ion-toggle>
+          </ion-item>
+
+          <ion-item class="consent-field-item">
+            <ion-checkbox
+              name="agreeToTerms"
+              [(ngModel)]="agreeToTerms"
+              required
+            >
+              <span class="checkbox-label">I agree to the Terms of Service and Privacy Policy</span>
+            </ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="action-bar">
+        <ion-button
+          type="submit"
+          class="primary-submit-btn"
+          [disabled]="!basicForm.form.valid || !fullName.trim() || !email.trim() || !agreeToTerms"
+        >
+          Submit Profile
+        </ion-button>
+        <ion-button
+          fill="clear"
+          color="medium"
+          type="button"
+          class="secondary-reset-btn"
+          (click)="onReset(basicForm)"
+        >
+          Reset
+        </ion-button>
+      </div>
+    </form>
+
+    <!-- Submitted Data Summary -->
+    @if (submitted) {
+    <div class="summary-wrapper ion-margin-top">
+      <div class="summary-header">
+        <div class="summary-title-row">
+          <h2 class="summary-heading">Submitted Profile</h2>
+          <ion-badge color="success">Verified</ion-badge>
+        </div>
+        <p class="summary-subtext">Record stored in session</p>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-field">
+          <span class="field-label">Name</span>
+          <span class="field-value">{{ submittedData?.fullName ?? fullName }}</span>
+        </div>
+        <div class="summary-field">
+          <span class="field-label">Email</span>
+          <span class="field-value">{{ submittedData?.email ?? email }}</span>
+        </div>
+        <div class="summary-field">
+          <span class="field-label">Gender</span>
+          <span class="field-value">{{ (submittedData?.gender ?? gender) || 'Not specified' }}</span>
+        </div>
+        <div class="summary-field">
+          <span class="field-label">Country</span>
+          <span class="field-value">{{ (submittedData?.country ?? country) || 'Not specified' }}</span>
+        </div>
+        <div class="summary-field full-width">
+          <span class="field-label">Bio</span>
+          <span class="field-value">{{ (submittedData?.bio ?? bio) || 'None' }}</span>
+        </div>
+        <div class="summary-field">
+          <span class="field-label">Notifications</span>
+          <span class="field-value">{{ (submittedData?.notifications ?? notifications) ? 'Enabled' : 'Disabled' }}</span>
+        </div>
+        <div class="summary-field">
+          <span class="field-label">Agreed to Terms</span>
+          <span class="field-value">{{ (submittedData?.agreeToTerms ?? agreeToTerms) ? 'Yes' : 'No' }}</span>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
 </ion-content>

@@ -14,10 +14,7 @@ import {
   IonCheckbox,
   IonToggle,
   IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
+  IonBadge,
 } from '@ionic/angular';
 
 export interface SubmittedFormData {
@@ -49,10 +46,7 @@ export interface SubmittedFormData {
     IonCheckbox,
     IonToggle,
     IonButton,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
+    IonBadge,
   ],
 })
 export class Tab1Page {

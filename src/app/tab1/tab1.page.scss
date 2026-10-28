@@ -1,0 +1,23 @@
+.form-container { max-width: 580px; margin: 0 auto 32px; }
+.form-header { margin-bottom: 20px; .page-headline { font-size: 1.4rem; font-weight: 700; margin: 0 0 4px; } .page-subline { font-size: 0.88rem; color: var(--ion-color-medium, #6b7280); margin: 0; } }
+.form-group-section { margin-bottom: 20px; .group-title { font-size: 0.8rem; text-transform: uppercase; font-weight: 600; color: var(--ion-color-medium, #4b5563); margin-bottom: 6px; } }
+.input-group { border-radius: 10px; border: 1px solid var(--b-col, #e2e8f0); background: var(--g-bg, #fff); overflow: hidden;
+  .form-field-item { --background: transparent; border-bottom: 1px solid var(--b-col, #f1f5f9); &:last-child { border-bottom: none; } }
+  .toggle-field-item, .consent-field-item { --background: transparent; padding: 4px 0; .toggle-hint { margin: 2px 0 0; font-size: 0.78rem; color: var(--ion-color-medium, #6b7280); } .checkbox-label { font-size: 0.85rem; } }
+}
+.action-bar { display: flex; gap: 10px; margin-top: 14px;
+  .primary-submit-btn { flex: 1; --border-radius: 8px; height: 44px; font-weight: 600; margin: 0; }
+  .secondary-reset-btn { margin: 0; height: 44px; }
+}
+.summary-wrapper { border-radius: 10px; border: 1px solid var(--b-col, #e2e8f0); background: var(--g-bg, #fff); padding: 14px;
+  .summary-header { border-bottom: 1px solid var(--b-col, #e2e8f0); padding-bottom: 8px; margin-bottom: 10px;
+    .summary-title-row { display: flex; justify-content: space-between; align-items: center; }
+    .summary-heading { font-size: 1rem; font-weight: 600; margin: 0; }
+    .summary-subtext { font-size: 0.75rem; color: var(--ion-color-medium, #6b7280); margin: 2px 0 0; }
+  }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; .full-width { grid-column: 1 / -1; }
+    .summary-field { .field-label { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--ion-color-medium, #6b7280); } .field-value { font-size: 0.9rem; font-weight: 500; } }
+  }
+}
+@media (prefers-color-scheme: dark) { :host { --g-bg: #18191d; --b-col: #2e3039; } }
+

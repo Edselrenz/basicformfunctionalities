@@ -1,0 +1,186 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Records & Inventory</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-shell">
+    <div class="shell-header">
+      <h1 class="shell-title">Data Lists & Inventory</h1>
+      <p class="shell-desc">Manage student grade records and retail inventory using Angular data binding.</p>
+    </div>
+
+    <!-- View Switcher -->
+    <ion-segment [(ngModel)]="activeView" class="view-segment ion-margin-bottom">
+      <ion-segment-button value="all">
+        <ion-label>All Records</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="groceries">
+        <ion-label>Groceries ({{ groceries.length }})</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="students">
+        <ion-label>Students ({{ students.length }})</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- SECTION 1: STUDENT GRADES (*ngFor) -->
+    <div class="data-section" *ngIf="activeView === 'all' || activeView === 'students'">
+      <div class="section-topbar">
+        <div>
+          <h2 class="section-title">Academic Gradebook</h2>
+          <p class="section-subtitle">Student records iterated with *ngFor directive</p>
+        </div>
+        <div class="stats-pill-group">
+          <span class="stat-badge">Avg: <strong>{{ classAverageGrade }}</strong></span>
+          <span class="stat-badge">Pass Rate: <strong>{{ passingRate }}</strong></span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <ion-list lines="inset" class="data-list">
+          <ion-item *ngFor="let student of students; let i = index" class="table-row-item">
+            <span slot="start" class="row-index">{{ i + 1 }}</span>
+            <ion-label class="student-info">
+              <h3 class="item-primary-text">{{ student.name }}</h3>
+              <p class="item-secondary-text">Final Score: <strong class="score-highlight">{{ student.grade }}%</strong></p>
+            </ion-label>
+            <ion-badge slot="end" [color]="getGradeColor(student.grade)" class="status-badge">
+              {{ getGradeRemark(student.grade) }}
+            </ion-badge>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+    <!-- SECTION 2: GROCERY INVENTORY (*ngFor) -->
+    <div class="data-section" *ngIf="activeView === 'all' || activeView === 'groceries'">
+      <div class="section-topbar">
+        <div>
+          <h2 class="section-title">Grocery Inventory</h2>
+          <p class="section-subtitle">{{ groceries.length }} items catalogued with price, quantity, and weight</p>
+        </div>
+        <ion-button size="small" class="add-item-action-btn" (click)="openAddModal()">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Add Item
+        </ion-button>
+      </div>
+
+      <!-- Inventory Search & Filter -->
+      <div class="search-wrapper">
+        <ion-searchbar
+          [(ngModel)]="searchQuery"
+          placeholder="Filter groceries by name or weight..."
+          debounce="150"
+          class="custom-searchbar"
+        ></ion-searchbar>
+      </div>
+
+      <!-- Grocery Items List -->
+      <div class="table-container">
+        <ion-list lines="inset" class="data-list">
+          <ion-item *ngFor="let item of filteredGroceries; let i = index" class="table-row-item">
+            <span slot="start" class="row-index">{{ i + 1 }}</span>
+            <ion-label class="grocery-info">
+              <h3 class="item-primary-text">{{ item.name }}</h3>
+              <p class="item-secondary-text">
+                <span class="meta-item">₱{{ item.price }}</span>
+                <span class="meta-dot">•</span>
+                <span class="meta-item">{{ item.weight }}</span>
+                <span class="meta-dot">•</span>
+                <span class="meta-item">Stock: {{ item.quantity }}</span>
+              </p>
+            </ion-label>
+            <div slot="end" class="row-trailing-meta">
+              <span class="subtotal-val">₱{{ item.price * item.quantity }}</span>
+              <span class="subtotal-label">Subtotal</span>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+    <!-- Add Grocery Item Modal -->
+    <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeAddModal()">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>New Grocery Entry</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeAddModal()" aria-label="Close dialog">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <div class="modal-form-shell">
+            <p class="modal-intro">Add a new item to the active grocery inventory.</p>
+
+            <ion-list lines="none" class="modal-input-group">
+              <ion-item class="modal-input-row">
+                <ion-input
+                  label="Product Name"
+                  labelPlacement="floating"
+                  type="text"
+                  [(ngModel)]="newItemName"
+                  placeholder="e.g. Canola Oil"
+                  required
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="modal-input-row">
+                <ion-input
+                  label="Unit Price (₱)"
+                  labelPlacement="floating"
+                  type="number"
+                  [(ngModel)]="newItemPrice"
+                  placeholder="e.g. 150"
+                  min="1"
+                  required
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="modal-input-row">
+                <ion-input
+                  label="Stock Quantity"
+                  labelPlacement="floating"
+                  type="number"
+                  [(ngModel)]="newItemQuantity"
+                  placeholder="e.g. 10"
+                  min="1"
+                  required
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="modal-input-row">
+                <ion-input
+                  label="Package Weight / Volume"
+                  labelPlacement="floating"
+                  type="text"
+                  [(ngModel)]="newItemWeight"
+                  placeholder="e.g. 500 g or 1 L"
+                  required
+                ></ion-input>
+              </ion-item>
+            </ion-list>
+
+            <div *ngIf="errorMessage" class="modal-error-alert" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <div class="modal-btn-stack">
+              <ion-button expand="block" class="modal-confirm-btn" (click)="addGroceryItem()">
+                <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+                Save Grocery Item
+              </ion-button>
+              <ion-button expand="block" fill="clear" color="medium" (click)="closeAddModal()">
+                Cancel
+              </ion-button>
+            </div>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>

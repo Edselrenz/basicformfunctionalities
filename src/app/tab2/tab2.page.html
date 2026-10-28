@@ -1,17 +1,100 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>All about NEUST</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">All about NEUST</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="neust-container">
+    <!-- Institutional Identity Header -->
+    <div class="institution-header">
+      <div class="institution-meta">
+        <ion-badge color="primary" class="state-u-badge">State University</ion-badge>
+        <span class="region-text">Central Luzon • Region III</span>
+      </div>
+      <h1 class="university-name">Nueva Ecija University of Science and Technology</h1>
+      <p class="university-subtext">Official Institutional Statements & Core Foundations</p>
+    </div>
+
+    <!-- Navigation Pills -->
+    <div class="nav-button-group">
+      <ion-button
+        [fill]="activeCategory === 'mission' ? 'solid' : 'outline'"
+        [color]="activeCategory === 'mission' ? 'primary' : 'medium'"
+        class="nav-pill"
+        (click)="showContent('mission')"
+      >
+        <ion-icon slot="start" name="flag"></ion-icon>
+        Mission
+      </ion-button>
+
+      <ion-button
+        [fill]="activeCategory === 'vision' ? 'solid' : 'outline'"
+        [color]="activeCategory === 'vision' ? 'primary' : 'medium'"
+        class="nav-pill"
+        (click)="showContent('vision')"
+      >
+        <ion-icon slot="start" name="eye"></ion-icon>
+        Vision
+      </ion-button>
+
+      <ion-button
+        [fill]="activeCategory === 'tagline' ? 'solid' : 'outline'"
+        [color]="activeCategory === 'tagline' ? 'primary' : 'medium'"
+        class="nav-pill"
+        (click)="showContent('tagline')"
+      >
+        <ion-icon slot="start" name="ribbon"></ion-icon>
+        Tagline
+      </ion-button>
+
+      <ion-button
+        [fill]="activeCategory === 'coreValues' ? 'solid' : 'outline'"
+        [color]="activeCategory === 'coreValues' ? 'primary' : 'medium'"
+        class="nav-pill"
+        (click)="showContent('coreValues')"
+      >
+        <ion-icon slot="start" name="star"></ion-icon>
+        Core Values
+      </ion-button>
+    </div>
+
+    <!-- Statement Reader Display -->
+    <div class="statement-display-panel">
+      <div class="panel-header">
+        <span class="panel-tag">{{ getCategoryLabel() }}</span>
+      </div>
+
+      <div class="statement-body">
+        @if (displayedContent) {
+          <p class="statement-quote">{{ displayedContent }}</p>
+        } @else {
+          <p class="placeholder-prompt">Tap any statement button above to explore NEUST's institutional foundation.</p>
+        }
+      </div>
+    </div>
+
+    <!-- Live Two-Way Binding Output Area -->
+    <div class="editor-section">
+      <ion-list lines="none" class="editor-list">
+        <ion-item class="editor-item">
+          <ion-textarea
+            label="Editable Content (Two-Way Bound)"
+            labelPlacement="floating"
+            placeholder="Click a button above to see the content..."
+            [(ngModel)]="displayedContent"
+            [rows]="4"
+            [autoGrow]="true"
+          ></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <span class="editor-caption">Two-way data bound with [(ngModel)] to Tab2Page.displayedContent</span>
+    </div>
+  </div>
 </ion-content>

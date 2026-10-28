@@ -1,0 +1,61 @@
+:host {
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --nav-hover: #f1f5f9;
+  --nav-active-bg: #eff6ff;
+  --nav-active-text: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --nav-bg: #141518;
+    --nav-border: #272a33;
+    --nav-hover: #1e2129;
+    --nav-active-bg: #172554;
+    --nav-active-text: #60a5fa;
+  }
+}
+
+.menu-intro-container {
+  padding: 8px 16px 12px;
+}
+
+.menu-app-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ion-color-medium, #64748b);
+}
+
+.nav-menu-list {
+  padding: 0 8px;
+}
+
+.nav-menu-item {
+  --background: transparent;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ion-text-color, #1e293b);
+
+  ion-icon {
+    font-size: 1.25rem;
+    margin-right: 12px;
+    color: var(--ion-color-medium, #64748b);
+  }
+
+  &.selected-menu-item {
+    --background: var(--nav-active-bg);
+    color: var(--nav-active-text);
+    font-weight: 600;
+
+    ion-icon {
+      color: var(--nav-active-text);
+    }
+  }
+}
+

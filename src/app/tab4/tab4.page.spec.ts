@@ -106,4 +106,3 @@ describe('Tab4Page', () => {
     expect(component.isModalOpen).toBe(false);
   });
 });
-

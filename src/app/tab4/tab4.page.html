@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" aria-label="Toggle navigation menu"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Records & Inventory</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -45,9 +48,10 @@
               <h3 class="item-primary-text">{{ student.name }}</h3>
               <p class="item-secondary-text">Final Score: <strong class="score-highlight">{{ student.grade }}%</strong></p>
             </ion-label>
-            <ion-badge slot="end" [color]="getGradeColor(student.grade)" class="status-badge">
+            <span slot="end" class="rating-remark" [ngClass]="'status-' + getGradeColor(student.grade)">
+              <span class="status-dot" aria-hidden="true"></span>
               {{ getGradeRemark(student.grade) }}
-            </ion-badge>
+            </span>
           </ion-item>
         </ion-list>
       </div>
@@ -78,7 +82,7 @@
 
       <!-- Grocery Items List -->
       <div class="table-container">
-        <ion-list lines="inset" class="data-list">
+        <ion-list *ngIf="filteredGroceries.length > 0" lines="inset" class="data-list">
           <ion-item *ngFor="let item of filteredGroceries; let i = index" class="table-row-item">
             <span slot="start" class="row-index">{{ i + 1 }}</span>
             <ion-label class="grocery-info">
@@ -97,6 +101,14 @@
             </div>
           </ion-item>
         </ion-list>
+
+        <!-- Empty State When Search Yields No Results -->
+        <div *ngIf="filteredGroceries.length === 0" class="empty-data-state">
+          <p class="empty-msg">No groceries found matching "<strong>{{ searchQuery }}</strong>"</p>
+          <ion-button size="small" fill="outline" (click)="searchQuery = ''">
+            Clear Search Filter
+          </ion-button>
+        </div>
       </div>
     </div>
 

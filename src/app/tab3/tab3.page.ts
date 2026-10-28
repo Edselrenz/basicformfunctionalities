@@ -17,6 +17,8 @@ import {
   IonCol,
   IonIcon,
   IonNote,
+  IonButtons,
+  IonMenuButton,
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { backspaceOutline, calculatorOutline } from 'ionicons/icons';
@@ -43,6 +45,8 @@ import { backspaceOutline, calculatorOutline } from 'ionicons/icons';
     IonCol,
     IonIcon,
     IonNote,
+    IonButtons,
+    IonMenuButton,
   ],
 })
 export class Tab3Page {

@@ -11,6 +11,8 @@ import {
   IonTextarea,
   IonBadge,
   IonIcon,
+  IonButtons,
+  IonMenuButton,
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { school, flag, eye, ribbon, star } from 'ionicons/icons';
@@ -31,6 +33,8 @@ import { school, flag, eye, ribbon, star } from 'ionicons/icons';
     IonTextarea,
     IonBadge,
     IonIcon,
+    IonButtons,
+    IonMenuButton,
   ],
 })
 export class Tab2Page {

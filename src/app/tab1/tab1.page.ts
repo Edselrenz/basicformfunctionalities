@@ -15,6 +15,8 @@ import {
   IonToggle,
   IonButton,
   IonBadge,
+  IonButtons,
+  IonMenuButton,
 } from '@ionic/angular';
 
 export interface SubmittedFormData {
@@ -47,6 +49,8 @@ export interface SubmittedFormData {
     IonToggle,
     IonButton,
     IonBadge,
+    IonButtons,
+    IonMenuButton,
   ],
 })
 export class Tab1Page {

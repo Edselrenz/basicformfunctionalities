@@ -1,0 +1,138 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      <ion-menu-button autoHide="false" aria-label="Toggle navigation menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Preferences Vault</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="storage-shell">
+    <div class="storage-intro">
+      <h1 class="page-title">Personal Preferences Vault</h1>
+      <p class="page-subtitle">Secure, browser-persisted storage for your age, custom palette, and user attributes.</p>
+    </div>
+
+    <!-- Store Section -->
+    <div class="card-section">
+      <h2 class="section-heading">Save Preferences</h2>
+
+      <ion-list lines="none" class="input-panel">
+        <ion-item class="input-row">
+          <ion-input
+            label="Age"
+            labelPlacement="floating"
+            type="number"
+            min="1"
+            max="120"
+            [(ngModel)]="inputAge"
+            placeholder="e.g. 24"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="input-row">
+          <ion-input
+            label="Favorite Color"
+            labelPlacement="floating"
+            type="text"
+            [(ngModel)]="inputColor"
+            placeholder="e.g. Navy Blue, Emerald, #2563eb"
+            required
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <!-- Preset Quick-Select Color Chips -->
+      <div class="preset-colors">
+        <span class="preset-label">Quick Color Presets:</span>
+        <div class="preset-pill-list">
+          <button
+            type="button"
+            *ngFor="let preset of colorPresets"
+            class="preset-chip"
+            (click)="selectPresetColor(preset.value)"
+          >
+            <span class="chip-swatch" [style.background-color]="preset.value"></span>
+            {{ preset.name }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <ion-button expand="block" class="primary-action-btn" (click)="saveToLocalStorage()">
+        <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+        Save to Vault
+      </ion-button>
+    </div>
+
+    <!-- Vault Controls (Display & Clear) -->
+    <div class="card-section">
+      <h2 class="section-heading">Vault Controls</h2>
+      <div class="action-grid">
+        <ion-button fill="outline" class="action-grid-btn" (click)="displayFromLocalStorage()">
+          <ion-icon slot="start" name="eye-outline"></ion-icon>
+          Display Saved Value
+        </ion-button>
+
+        <ion-button fill="outline" color="danger" class="action-grid-btn" (click)="clearLocalStorage()">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Clear
+        </ion-button>
+      </div>
+
+      <!-- Feedback Alert -->
+      <div
+        *ngIf="feedbackMessage"
+        class="feedback-alert"
+        [class.alert-danger]="feedbackType === 'danger'"
+        [class.alert-success]="feedbackType === 'success'"
+        [class.alert-info]="feedbackType === 'info'"
+      >
+        <ion-icon
+          [name]="feedbackType === 'danger' ? 'trash-outline' : (feedbackType === 'success' ? 'checkmark-circle-outline' : 'information-circle-outline')"
+        ></ion-icon>
+        <span>{{ feedbackMessage }}</span>
+      </div>
+    </div>
+
+    <!-- Retrieved Storage Record -->
+    <div class="card-section">
+      <h2 class="section-heading">Active Vault Record</h2>
+
+      <!-- Active Record Display -->
+      <div *ngIf="isDataDisplayed" class="retrieved-data-box">
+        <div class="record-meta-row">
+          <span class="record-status-pill">Vault Verified</span>
+          <span class="record-time">{{ retrievedTimestamp }}</span>
+        </div>
+
+        <div class="record-grid">
+          <div class="record-tile">
+            <span class="tile-label">Stored Age</span>
+            <span class="tile-val age-val">
+              {{ displayedAge !== null ? displayedAge + ' years old' : 'Not recorded' }}
+            </span>
+          </div>
+
+          <div class="record-tile">
+            <span class="tile-label">Favorite Color</span>
+            <div class="color-val-wrapper">
+              <span class="color-swatch-box" [style.background-color]="displayedColor || '#cbd5e1'"></span>
+              <span class="tile-val color-val">{{ displayedColor || 'Not recorded' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!isDataDisplayed" class="empty-storage-state">
+        <ion-icon name="shield-checkmark-outline" class="empty-icon"></ion-icon>
+        <p class="empty-title">No preferences currently displayed</p>
+        <p class="empty-subtitle">Tap "Display Saved Value" above to retrieve data stored in your local vault.</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
